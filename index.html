@@ -24,6 +24,8 @@ p {
   background-color: #3f67c6;
   padding: 10px 10px;
   position: relative;
+  align-items: center;
+  justify-content: center;
 }
 
 .header a {
@@ -40,10 +42,7 @@ p {
 .header a.logo {
   font-size: 25px;
   font-weight: bold;
-  background-color: #3f67c6;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);/
+  float:left;
 }
 
 .header a.active {
@@ -53,6 +52,12 @@ p {
 
 .header-right {
   float: right;
+}
+  
+.logo-container img {
+   width: 100%;
+   height: auto;
+   float:left;
 }
 
 @media screen and (max-width: 500px) {
@@ -65,11 +70,6 @@ p {
   .header-right {
     float: none;
   }
-  
-  .logo-container img {
-   width: 100%;
-   height: auto;
-}
   }
   
 .accordion {
