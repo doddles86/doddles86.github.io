@@ -40,6 +40,9 @@ p {
 .header a.logo {
   font-size: 25px;
   font-weight: bold;
+  top: 0; bottom: 0; left: 0; right: 0;
+  margin: auto;
+  height: 64px; /*requires explicit height*/
 }
 
 .header a.active {
@@ -62,9 +65,12 @@ p {
     float: none;
   }
   
-  #logo-container img {
+  .logo-container img {
    width: auto;
    height: auto;
+   top: 0; bottom: 0; left: 0; right: 0;
+   margin: auto;
+   height: 64px; /*requires explicit height*/
 }
 }
   
@@ -82,8 +88,8 @@ p {
 }
   
 .subaccordion {
-  background-color: #eee;
-  color: #fafafa;
+  background-color: #fafafa;
+  color: #444;
   cursor: pointer;
   padding: 24px;
   width: 100%;
