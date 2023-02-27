@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Disneyland Resort</title>
+    <style>
+    /* styles */
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    #map {
+      width: 100vw;
+      height: calc(100vh - 84px);
+    }
+      
+ .header {
+  overflow: hidden;
+  background-color: #3f67c6;
+  padding: 10px 10px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header a {
+  float: left;
+  color: white;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 24px; 
+  line-height: 25px;
+  border-radius: 4px;
+}
+
+.header a.logo {
+  font-size: 25px;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 84px;
+}
+
+.header a.active {
+  background-color: dodgerblue;
+  color: white;
+}
+
+.header-right {
+  float: right;
+}
+  
+.header img {
+   height: 64px;
+}
+
+@media screen and (max-width: 500px) {
+  .header a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  
+  .header-right {
+    float: none;
+  }
+  }  
+      
+    </style>
+  </head>
+  <body>
+
+    <div class="header">
+  <a href="https://www.parkmaparchive.com" class="img"><img width="64" height="64" src="/doddles86.github.io/icon.png" alt="Park Map Archive" /></a>
+  <a href="https://www.parkmaparchive.com" class="logo">Park Map Archive</a>
+</div>
+
+    <div id="map"></div>
+
+    <script>
+      
+var TILE_URL = 'https://cdn6.parksmedia.wdprapps.disney.com/media/maps/prod/disneyland/799833903/{z}/{x}/{y}.jpg';
+
+    var map;
+    var mapEl;
+    var layer;
+    var layerID = 'my-custom-layer';
+
+    window.initMap = function() {
+      // Select the element with id="map".
+      mapEl = document.querySelector('#map');
+      
+      // Create a new map.
+      map = new google.maps.Map(mapEl, {
+        center: new google.maps.LatLng(33.812925, -117.91898722658469),
+        zoom: 19,
+        mapTypeControl: false,
+        streetViewControl: false,
+     
+      });
+      
+      // Create a tile layer, configured to fetch tiles from TILE_URL.
+      layer = new google.maps.ImageMapType({
+        name: layerID,
+        getTileUrl: function(coord, zoom) {
+          console.log(coord);
+          var url = TILE_URL
+            .replace('{x}', coord.x)
+            .replace('{y}', coord.y)
+            .replace('{z}', zoom);
+          return url;
+        },
+        tileSize: new google.maps.Size(256, 256),
+        minZoom: 11,
+        maxZoom: 20
+      });
+      
+      // Apply the new tile layer to the map.
+      map.mapTypes.set(layerID, layer);
+      map.setMapTypeId(layerID);
+    
+    };
+    </script>
+    <!-- NOTE: The 'key' parameter should be replaced with your Google Maps API Key. -->
+    <script src="https://maps.googleapis.com/maps/api/js?callback=initMap&key=AIzaSyBmUn02ETupU7SsPT9g5rRzjY1rrOKugU4"></script>
+    
+  </body>
+</html>
