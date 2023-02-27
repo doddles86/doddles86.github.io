@@ -63,7 +63,10 @@ p {
 }
 
 .header-right {
-  float: right;
+  right: 10px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
   
 .header img {
@@ -178,8 +181,13 @@ p {
 <body>
 
 <div class="header">
-  <a href="https://www.parkmaparchive.com" class="img"><img width="64" height="64" src="../icon.png" alt="Park Map Archive" /></a>
-  <a href="https://www.parkmaparchive.com" class="logo">Park Map Archive</a>
+    <a href="https://www.parkmaparchive.com" class="img"><img width="64" height="64" src="../icon.png" alt="Park Map Archive" /></a>
+    <a href="https://www.parkmaparchive.com" class="logo">Park Map Archive</a>
+  <div class="header-right">
+    <a class="active" href="../index.html">Home</a>
+    <a href="../about.html">About</a>
+    <a href="../contact.html">Contact</a>
+  </div>
 </div>
   
 <div class="park">
