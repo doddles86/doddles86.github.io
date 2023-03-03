@@ -11,7 +11,7 @@
   gtag('config', 'G-YL6W07ECTT');
 </script>
     <meta charset="utf-8">
-    <title>Disneyland Resort</title>
+    <title>Disneyland</title>
     <style>
     /* styles */
 
@@ -23,13 +23,13 @@
 
     #map {
       width: 100vw;
-      height: calc(100vh - 84px);
+      height: 100vh;
     }
       
  .header {
   overflow: hidden;
   background-color: #3f67c6;
-  padding: 10px 10px;
+  padding: 5px 10px;
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -78,7 +78,28 @@
   .header-right {
     float: none;
   }
-  }  
+  } 
+ 
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+  
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
       
     </style>
   </head>
@@ -88,13 +109,40 @@
   <a href="https://www.parkmaparchive.com" class="img"><img width="64" height="64" src="/doddles86.github.io/icon.png" alt="Park Map Archive" /></a>
   <a href="https://www.parkmaparchive.com" class="logo">Park Map Archive</a>
 </div>
+    
+    <ul>
+  <li><a href="#" id="current" onclick="switchimagery('current',0)">Current</a></li>
+  <li><a href="#" id="old" onclick="switchimagery('old',1)">2018</a></li>
+</ul>
 
     <div id="map"></div>
 
-    <script>
+   <script>
       
 var TILE_URL = 'https://cdn6.parksmedia.wdprapps.disney.com/media/maps/prod/disneyland/799833903/{z}/{x}/{y}.jpg';
+var TILE_URL1 = 'https://cdn1.parksmedia.wdprapps.disney.com/media/maps/prod/disneyland/{z}/{x}/{y}.jpg';
 
+var layers = [{
+            "tile_id": "3",
+            "tile_name": "375138865",
+            "tile_alias": "current",
+            "tile_location": "https://cdn6.parksmedia.wdprapps.disney.com/media/maps/prod/disneyland/799833903/{z}/{x}/{y}.jpg",
+            "tile_status": "active",
+            "min_zoom": "1",
+            "max_zoom": "20"
+        }, {
+            "tile_id": "2",
+            "tile_name": "prod",
+            "tile_alias": "old",
+            "tile_location": "https://cdn1.parksmedia.wdprapps.disney.com/media/maps/prod/disneyland/{z}/{x}/{y}.jpg",
+            "tile_status": "active",
+            "min_zoom": "11",
+            "max_zoom": "20"
+        }];
+        var layerarray = [],
+            imagerylayer = [],
+            imagerylayerid = [];    
+      
     var map;
     var mapEl;
     var layer;
@@ -110,29 +158,69 @@ var TILE_URL = 'https://cdn6.parksmedia.wdprapps.disney.com/media/maps/prod/disn
         zoom: 19,
         mapTypeControl: false,
         streetViewControl: false,
+        zoomControlOptions: {
+        position: google.maps.ControlPosition.RIGHT_CENTER,
+      },
      
       });
       
       // Create a tile layer, configured to fetch tiles from TILE_URL.
-      layer = new google.maps.ImageMapType({
-        name: layerID,
-        getTileUrl: function(coord, zoom) {
-          console.log(coord);
-          var url = TILE_URL
-            .replace('{x}', coord.x)
-            .replace('{y}', coord.y)
-            .replace('{z}', zoom);
-          return url;
-        },
-        tileSize: new google.maps.Size(256, 256),
-        minZoom: 11,
-        maxZoom: 20
-      });
-      
-      // Apply the new tile layer to the map.
-      map.mapTypes.set(layerID, layer);
-      map.setMapTypeId(layerID);
-    
+      console.log({
+                layers
+            });
+            for (var i = 0; i < 2; i++) {
+
+                let path = layers[i].tile_location;
+
+                var tname = layers[i].tile_alias;
+                var min = layers[i].min_zoom;
+                var max = layers[i].max_zoom;
+                var tempimagelayer = "";
+                console.log(path);
+                imagerylayer[i] = new google.maps.ImageMapType({
+                    name: tname,
+                    getTileUrl: function (coord, zoom) {
+
+                        var url = path
+                            .replace('{x}', coord.x)
+                            .replace('{y}', coord.y)
+                            .replace('{z}', zoom);
+                        console.log(url);
+
+                        return url;
+                    },
+                    tileSize: new google.maps.Size(256, 256),
+                    minZoom: 11,
+                    maxZoom:20,
+                });
+                if(i==0)
+                {
+                  map.overlayMapTypes.push(imagerylayer[i]);
+                }
+            }
+        };
+
+        function switchimagery(imgid, id) {
+            console.log("Imgid:"+imgid+"  id:"+id);
+            console.log(imagerylayer[id].name, imagerylayer[id].getTileUrl);
+            map.overlayMapTypes.clear();
+
+            map.overlayMapTypes.push(imagerylayer[id]);
+
+            for (var j = 0; j < imagerylayer.length; j++) {
+                var buttonname = "#" + imagerylayer[j].name;
+                if (imagerylayer[j].name == imgid) {
+
+
+                    $(buttonname).addClass("btn-success");
+                    $(buttonname).removeClass("btn-secondary");
+
+                } else {
+                    $(buttonname).removeClass("btn-success");
+                    $(buttonname).addClass("btn-secondary");
+                }
+                //map.overlayMapTypes.pop(imagerylayer[i]);
+            }
     };
     </script>
     <!-- NOTE: The 'key' parameter should be replaced with your Google Maps API Key. -->
