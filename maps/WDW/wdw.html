@@ -121,16 +121,17 @@ li a {
       
 <!-- var TILE_URL = 'https://cdn6.parksmedia.wdprapps.disney.com/media/maps/prod/wdw/375138865/{z}/{x}/{y}.jpg'; -->
 <!-- var TILE_URL = 'https://cdn6.parksmedia.wdprapps.disney.com/media/maps/prod/wdw/589151762/{z}/{x}/{y}.jpg'; -->
-var TILE_URL = 'https://cdn6.parksmedia.wdprapps.disney.com/media/maps/prod/wdw/682393648/{z}/{x}/{y}.jpg'
+<!-- var TILE_URL = 'https://cdn6.parksmedia.wdprapps.disney.com/media/maps/prod/wdw/682393648/{z}/{x}/{y}.jpg'; -->
+var TILE_URL = 'https://cdn6.parksmedia.wdprapps.disney.com/media/maps/prod/wdw/415999687/{z}/{x}/{y}.jpg';
 var TILE_URL1 = 'https://cdn1.parksmedia.wdprapps.disney.com/media/maps/prod/{z}/{x}/{y}.jpg';
 
 var layers = [{
             "tile_id": "3",
             "tile_name": "375138865",
             "tile_alias": "current",
-            "tile_location": "https://cdn6.parksmedia.wdprapps.disney.com/media/maps/prod/wdw/682393648/{z}/{x}/{y}.jpg",
+            "tile_location": "https://cdn6.parksmedia.wdprapps.disney.com/media/maps/prod/wdw/415999687/{z}/{x}/{y}.jpg",
             "tile_status": "active",
-            "min_zoom": "1",
+            "min_zoom": "11",
             "max_zoom": "20"
         }, {
             "tile_id": "2",
@@ -193,7 +194,7 @@ var layers = [{
                     },
                     tileSize: new google.maps.Size(256, 256),
                     minZoom: 11,
-                    maxZoom:20,
+                    maxZoom: 20,
                 });
                 if(i==0)
                 {
